@@ -22,10 +22,8 @@ class PageNotFound extends StatelessWidget {
               height: Space.xxl,
             ),
             Button(
-              buttonType: ButtonType.elevatedPrimary,
               buttonSize: ButtonSize.md,
               buttonColor: ButtonColor.warning,
-              isFullWidth: false,
               onPressed: () {
                 context.go('/');
               },

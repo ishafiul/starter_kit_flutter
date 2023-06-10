@@ -1,3 +1,4 @@
+import 'package:starter_kit_flutter/common/widgets/button.dart';
 import 'package:starter_kit_flutter/counter/counter.dart';
 import 'package:starter_kit_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,11 @@ class CounterText extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final count = context.select((CounterCubit cubit) => cubit.state);
-    return Text('$count', style: theme.textTheme.displayLarge);
+    return Column(
+      children: [
+        Text('$count', style: theme.textTheme.displayLarge),
+        Button.elevatedPrimary(buttonSize: ButtonSize.sm, buttonColor: ButtonColor.secondary, child: Text('sdf'),onPressed: (){},)
+      ],
+    );
   }
 }

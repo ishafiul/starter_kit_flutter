@@ -1,25 +1,69 @@
+import 'package:flutter/material.dart';
 import 'package:starter_kit_flutter/common/config/colors.dart';
 import 'package:starter_kit_flutter/common/utils/extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-class Button extends HookWidget {
+class Button extends StatelessWidget {
   final Function()? onPressed;
-  final ButtonType buttonType;
+  late final ButtonType? buttonType;
   final ButtonSize buttonSize;
   final ButtonColor buttonColor;
   final bool? isFullWidth;
   final Widget child;
 
-  const Button({
+  Button({
     super.key,
     this.onPressed,
-    required this.buttonType,
     required this.buttonSize,
     required this.buttonColor,
-    this.isFullWidth = true,
+    this.isFullWidth = false,
     required this.child,
-  });
+  }) {
+    buttonType = ButtonType.elevatedPrimary;
+  }
+
+  Button.text({
+    super.key,
+    this.onPressed,
+    required this.buttonSize,
+    required this.buttonColor,
+    this.isFullWidth = false,
+    required this.child,
+  }) {
+    buttonType = ButtonType.text;
+  }
+
+  Button.outline({
+    super.key,
+    this.onPressed,
+    required this.buttonSize,
+    required this.buttonColor,
+    this.isFullWidth = false,
+    required this.child,
+  }) {
+    buttonType = ButtonType.outline;
+  }
+
+  Button.elevatedPrimary({
+    super.key,
+    this.onPressed,
+    required this.buttonSize,
+    required this.buttonColor,
+    this.isFullWidth = false,
+    required this.child,
+  }) {
+    buttonType = ButtonType.elevatedPrimary;
+  }
+
+  Button.elevatedSecondary({
+    super.key,
+    this.onPressed,
+    required this.buttonSize,
+    required this.buttonColor,
+    this.isFullWidth = false,
+    required this.child,
+  }) {
+    buttonType = ButtonType.elevatedSecondary;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +105,6 @@ class Button extends HookWidget {
       );
     } else {
       return SizedBox(
-        width: isFullWidth! ? double.infinity : 108,
         height: 48,
         child: ElevatedButton(
           onPressed: onPressed,
@@ -126,7 +169,7 @@ Widget elevatedButtonPrimary({
 
 Widget elevatedButtonSecondary({
   required ButtonSize buttonSize,
-  bool? isFullWidth = true,
+  bool? isFullWidth = false,
   Function()? onPressed,
   required Widget child,
   required BuildContext context,
