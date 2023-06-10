@@ -32,6 +32,7 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.text;
   }
 
+
   Button.outline({
     super.key,
     this.onPressed,
