@@ -1,5 +1,5 @@
-import 'package:starter_kit_flutter/comon/config/colors.dart';
-import 'package:starter_kit_flutter/comon/config/const.dart';
+import 'package:starter_kit_flutter/common/config/colors.dart';
+import 'package:starter_kit_flutter/common/config/const.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

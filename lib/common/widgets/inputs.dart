@@ -1,5 +1,5 @@
-import 'package:starter_kit_flutter/comon/utils/extensions.dart';
-import 'package:starter_kit_flutter/comon/utils/funtion_utils.dart';
+import 'package:starter_kit_flutter/common/utils/extensions.dart';
+import 'package:starter_kit_flutter/common/utils/funtion_utils.dart';
 import 'package:flutter/material.dart';
 
 class AtristaDownItemInput extends StatelessWidget {

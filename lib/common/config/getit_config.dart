@@ -1,5 +1,5 @@
 
-import 'package:starter_kit_flutter/comon/config/getit_config.config.dart';
+import 'package:starter_kit_flutter/common/config/getit_config.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 

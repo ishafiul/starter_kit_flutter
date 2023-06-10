@@ -1,6 +1,6 @@
-import 'package:starter_kit_flutter/comon/state/snack_bar/snack_bar_cubit.dart';
-import 'package:starter_kit_flutter/comon/widgets/layout/refresh_indicator.dart';
-import 'package:starter_kit_flutter/comon/widgets/snackbar.dart';
+import 'package:starter_kit_flutter/common/state/snack_bar/snack_bar_cubit.dart';
+import 'package:starter_kit_flutter/common/widgets/layout/refresh_indicator.dart';
+import 'package:starter_kit_flutter/common/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

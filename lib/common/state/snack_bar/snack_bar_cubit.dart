@@ -1,5 +1,5 @@
 
-import 'package:starter_kit_flutter/comon/widgets/snackbar.dart';
+import 'package:starter_kit_flutter/common/widgets/snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';

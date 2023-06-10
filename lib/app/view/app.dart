@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starter_kit_flutter/app/app_router.dart';
-import 'package:starter_kit_flutter/comon/config/bloc_providers.dart';
-import 'package:starter_kit_flutter/comon/config/getit_config.dart';
-import 'package:starter_kit_flutter/comon/config/theme.dart';
+import 'package:starter_kit_flutter/common/config/bloc_providers.dart';
+import 'package:starter_kit_flutter/common/config/getit_config.dart';
+import 'package:starter_kit_flutter/common/config/theme.dart';
 import 'package:starter_kit_flutter/l10n/l10n.dart';
 
 class App extends StatelessWidget {

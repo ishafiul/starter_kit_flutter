@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:starter_kit_flutter/comon/config/getit_config.dart';
+import 'package:starter_kit_flutter/common/config/getit_config.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();

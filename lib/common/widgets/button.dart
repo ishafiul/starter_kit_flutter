@@ -1,5 +1,5 @@
-import 'package:starter_kit_flutter/comon/config/colors.dart';
-import 'package:starter_kit_flutter/comon/utils/extensions.dart';
+import 'package:starter_kit_flutter/common/config/colors.dart';
+import 'package:starter_kit_flutter/common/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
