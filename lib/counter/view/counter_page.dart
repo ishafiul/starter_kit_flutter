@@ -54,7 +54,15 @@ class CounterText extends StatelessWidget {
     return Column(
       children: [
         Text('$count', style: theme.textTheme.displayLarge),
-        Button.elevatedPrimary(buttonSize: ButtonSize.sm, buttonColor: ButtonColor.secondary, child: Text('sdf'),onPressed: (){},)
+        Button(
+          buttonSize: ButtonSize.sm,
+          buttonColor: ButtonColor.info,
+          child: const Text('helloooooo'),
+          onPressed: () {},
+        ),
+        IconButton.filledTonal(onPressed: () {
+          
+        }, icon: Icon(Icons.add),)
       ],
     );
   }

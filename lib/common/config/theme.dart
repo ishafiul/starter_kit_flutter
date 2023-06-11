@@ -47,10 +47,9 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           textStyle: TextStyle(color: ArtistaColor.primary),
-          padding: const EdgeInsets.all(6),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(buttonBorderRadius),
             ),
           ),
         ),
@@ -61,14 +60,13 @@ class AppTheme {
       dialogBackgroundColor: Colors.white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          elevation: 4,
           disabledBackgroundColor: ArtistaColor.disable,
-          padding: const EdgeInsets.all(6),
           disabledForegroundColor: ArtistaColor.disableText,
           foregroundColor: ArtistaColor.primary,
-          backgroundColor: ArtistaColor.primary.shade50,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(buttonBorderRadius),
             ),
           ),
         ),
@@ -77,12 +75,21 @@ class AppTheme {
         style: OutlinedButton.styleFrom(
           disabledForegroundColor: ArtistaColor.disableText,
           foregroundColor: ArtistaColor.primary,
-          padding: const EdgeInsets.all(6),
           shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(buttonBorderRadius),
             ),
             side: BorderSide(color: ArtistaColor.primary),
+          ),
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          disabledBackgroundColor: ArtistaColor.disable,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(buttonBorderRadius),
+            ),
           ),
         ),
       ),

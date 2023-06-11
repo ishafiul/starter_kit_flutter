@@ -12,3 +12,5 @@ class Space {
   static const double xxxxxxxl = 80;
   static const double xxxxxxxxl = 96;
 }
+
+const double buttonBorderRadius = 10;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:starter_kit_flutter/common/config/colors.dart';
+import 'package:starter_kit_flutter/common/config/const.dart';
 import 'package:starter_kit_flutter/common/utils/extensions.dart';
 
 class Button extends StatelessWidget {
@@ -18,7 +19,7 @@ class Button extends StatelessWidget {
     this.isFullWidth = false,
     required this.child,
   }) {
-    buttonType = ButtonType.elevatedPrimary;
+    buttonType = ButtonType.elevated;
   }
 
   Button.text({
@@ -32,7 +33,6 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.text;
   }
 
-
   Button.outline({
     super.key,
     this.onPressed,
@@ -44,7 +44,7 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.outline;
   }
 
-  Button.elevatedPrimary({
+  Button.filled({
     super.key,
     this.onPressed,
     required this.buttonSize,
@@ -52,10 +52,10 @@ class Button extends StatelessWidget {
     this.isFullWidth = false,
     required this.child,
   }) {
-    buttonType = ButtonType.elevatedPrimary;
+    buttonType = ButtonType.filled;
   }
 
-  Button.elevatedSecondary({
+  Button.tonal({
     super.key,
     this.onPressed,
     required this.buttonSize,
@@ -63,13 +63,13 @@ class Button extends StatelessWidget {
     this.isFullWidth = false,
     required this.child,
   }) {
-    buttonType = ButtonType.elevatedSecondary;
+    buttonType = ButtonType.tonal;
   }
 
   @override
   Widget build(BuildContext context) {
     if (buttonType == ButtonType.text) {
-      return textButton(
+      return text(
         buttonSize: buttonSize,
         child: child,
         context: context,
@@ -77,8 +77,8 @@ class Button extends StatelessWidget {
         onPressed: onPressed,
         isFullWidth: isFullWidth,
       );
-    } else if (buttonType == ButtonType.elevatedPrimary) {
-      return elevatedButtonPrimary(
+    } else if (buttonType == ButtonType.filled) {
+      return filled(
         buttonSize: buttonSize,
         child: child,
         context: context,
@@ -86,8 +86,8 @@ class Button extends StatelessWidget {
         onPressed: onPressed,
         isFullWidth: isFullWidth,
       );
-    } else if (buttonType == ButtonType.elevatedSecondary) {
-      return elevatedButtonSecondary(
+    } else if (buttonType == ButtonType.tonal) {
+      return tonal(
         buttonSize: buttonSize,
         child: child,
         context: context,
@@ -96,7 +96,16 @@ class Button extends StatelessWidget {
         isFullWidth: isFullWidth,
       );
     } else if (buttonType == ButtonType.outline) {
-      return outlineButton(
+      return outline(
+        buttonSize: buttonSize,
+        child: child,
+        context: context,
+        buttonColor: buttonColor,
+        onPressed: onPressed,
+        isFullWidth: isFullWidth,
+      );
+    } else if (buttonType == ButtonType.icon) {
+      return outline(
         buttonSize: buttonSize,
         child: child,
         context: context,
@@ -105,26 +114,54 @@ class Button extends StatelessWidget {
         isFullWidth: isFullWidth,
       );
     } else {
-      return SizedBox(
-        height: 48,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: child,
-        ),
+      return elevated(
+        buttonSize: buttonSize,
+        child: child,
+        context: context,
+        buttonColor: buttonColor,
+        onPressed: onPressed,
+        isFullWidth: isFullWidth,
       );
     }
   }
 }
 
-enum ButtonType { text, elevatedPrimary, elevatedSecondary, outline }
+enum ButtonType { text, elevated, filled, outline, tonal, icon }
 
 enum ButtonSize { xl, lg, md, sm, xsm }
 
 enum ButtonColor { info, primary, warning, danger, success, secondary }
 
-Widget textButton({
+Widget filled({
   required ButtonSize buttonSize,
-  bool? isFullWidth = true,
+  bool? isFullWidth = false,
+  Function()? onPressed,
+  required Widget child,
+  required BuildContext context,
+  required ButtonColor buttonColor,
+}) {
+  final inverseBW = InverseBW();
+  return SizedBox(
+    width: isFullWidth! ? double.infinity : null,
+    height: getHeight(buttonSize),
+    child: FilledButton(
+      onPressed: onPressed,
+      style: context.filledButtonTheme.style?.copyWith(
+        foregroundColor: onPressed != null
+            ? MaterialStatePropertyAll(
+                HexColor.fromHex(inverseBW.getInverseBW(getColorOnly(buttonColor: buttonColor).toHex())),
+              )
+            : null,
+        backgroundColor: onPressed != null ? getColor(buttonColor: buttonColor) : null,
+      ),
+      child: child,
+    ),
+  );
+}
+
+Widget text({
+  required ButtonSize buttonSize,
+  bool? isFullWidth = false,
   Function()? onPressed,
   required Widget child,
   required BuildContext context,
@@ -143,7 +180,7 @@ Widget textButton({
   );
 }
 
-Widget elevatedButtonPrimary({
+Widget elevated({
   required ButtonSize buttonSize,
   bool? isFullWidth = true,
   Function()? onPressed,
@@ -154,21 +191,20 @@ Widget elevatedButtonPrimary({
   return SizedBox(
     width: isFullWidth! ? double.infinity : null,
     height: getHeight(buttonSize),
-    child: TextButton(
+    child: ElevatedButton(
       onPressed: onPressed,
       style: context.elevatedButtonTheme.style?.copyWith(
         foregroundColor: onPressed != null
-            ? const MaterialStatePropertyAll(Colors.white)
+            ? getColor(buttonColor: buttonColor)
             : const MaterialStatePropertyAll(ArtistaColor.disableText),
-        backgroundColor:
-            onPressed != null ? getColor(buttonColor: buttonColor) : MaterialStatePropertyAll(ArtistaColor.disable),
+        backgroundColor: const MaterialStatePropertyAll(Colors.white),
       ),
       child: child,
     ),
   );
 }
 
-Widget elevatedButtonSecondary({
+Widget tonal({
   required ButtonSize buttonSize,
   bool? isFullWidth = false,
   Function()? onPressed,
@@ -176,28 +212,32 @@ Widget elevatedButtonSecondary({
   required BuildContext context,
   required ButtonColor buttonColor,
 }) {
-  return SizedBox(
+  return Container(
     width: isFullWidth! ? double.infinity : null,
     height: getHeight(buttonSize),
-    child: TextButton(
+    decoration: const BoxDecoration(
+      borderRadius: BorderRadius.all(
+        Radius.circular(buttonBorderRadius),
+      ),
+      color: Colors.white,
+    ),
+    child: FilledButton.tonal(
       onPressed: onPressed,
-      style: context.elevatedButtonTheme.style?.copyWith(
-        foregroundColor: onPressed != null
-            ? getColor(buttonColor: buttonColor)
-            : const MaterialStatePropertyAll(ArtistaColor.disableText),
+      style: context.filledButtonTheme.style?.copyWith(
+        foregroundColor: onPressed != null ? getColor(buttonColor: buttonColor) : null,
         backgroundColor: onPressed != null
             ? getColor(
                 buttonColor: buttonColor,
-                buttonType: ButtonType.elevatedSecondary,
+                buttonType: ButtonType.filled,
               )
-            : MaterialStatePropertyAll(ArtistaColor.disable),
+            : null,
       ),
-      child: Center(child: child),
+      child: child,
     ),
   );
 }
 
-Widget outlineButton({
+Widget outline({
   required ButtonSize buttonSize,
   bool? isFullWidth = true,
   Function()? onPressed,
@@ -208,7 +248,7 @@ Widget outlineButton({
   return SizedBox(
     width: isFullWidth! ? double.infinity : null,
     height: getHeight(buttonSize),
-    child: TextButton(
+    child: OutlinedButton(
       onPressed: onPressed,
       style: context.outlineButtonTheme.style?.copyWith(
         foregroundColor: onPressed != null
@@ -255,19 +295,19 @@ MaterialStateProperty<Color?> getColor({
   required ButtonColor buttonColor,
   ButtonType? buttonType,
 }) {
-  if (buttonType != null && buttonType == ButtonType.elevatedSecondary) {
+  if (buttonType != null && buttonType == ButtonType.filled) {
     if (buttonColor == ButtonColor.success) {
-      return MaterialStatePropertyAll(ArtistaColor.success.shade50);
+      return MaterialStatePropertyAll(ArtistaColor.success.shade50.withOpacity(0.5));
     } else if (buttonColor == ButtonColor.primary) {
-      return MaterialStatePropertyAll(ArtistaColor.primary.shade50);
+      return MaterialStatePropertyAll(ArtistaColor.primary.shade50.withOpacity(0.5));
     } else if (buttonColor == ButtonColor.info) {
-      return const MaterialStatePropertyAll(ArtistaColor.infoShade20);
+      return MaterialStatePropertyAll(ArtistaColor.info.shade50.withOpacity(0.5));
     } else if (buttonColor == ButtonColor.warning) {
-      return MaterialStatePropertyAll(ArtistaColor.warning.shade50);
+      return MaterialStatePropertyAll(ArtistaColor.warning.shade50.withOpacity(0.5));
     } else if (buttonColor == ButtonColor.secondary) {
-      return MaterialStatePropertyAll(ArtistaColor.secondary.shade50);
+      return MaterialStatePropertyAll(ArtistaColor.secondary.shade50.withOpacity(0.5));
     } else {
-      return MaterialStatePropertyAll(ArtistaColor.danger.shade50);
+      return MaterialStatePropertyAll(ArtistaColor.danger.shade50.withOpacity(0.5));
     }
   } else {
     return MaterialStatePropertyAll(getColorOnly(buttonColor: buttonColor));

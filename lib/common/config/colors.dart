@@ -38,3 +38,23 @@ class ArtistaColor {
 
   ArtistaColor();
 }
+
+class InverseBW {
+  double _calculateLuminance(List<int> rgb) {
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+  }
+
+  List<int> _hexToRBG(String colorStr) {
+    final List<int> rbg = [];
+    rbg.add(int.parse(colorStr.substring(1, 3), radix: 16));
+    rbg.add(int.parse(colorStr.substring(3, 5), radix: 16));
+    rbg.add(int.parse(colorStr.substring(5, 7), radix: 16));
+    return rbg;
+  }
+
+  String getInverseBW(String hexColor) {
+    final double luminance = _calculateLuminance(_hexToRBG(hexColor));
+    final String inverse = (luminance < 140) ? "#ffffff" : "#000000";
+    return inverse;
+  }
+}
