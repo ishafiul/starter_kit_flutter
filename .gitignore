@@ -9,6 +9,7 @@
 .buildlog/
 .history
 .svn/
+.env
 
 # IntelliJ related
 *.iml
@@ -54,7 +55,7 @@ flutter_*.png
 linked_*.ds
 unlinked.ds
 unlinked_spec.ds
-.fvm/
+.fvm/flutter_sdk
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -124,3 +125,8 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+# generated code
+*.g.dart
+*.freezed.dart
+*.config.dart

@@ -1,43 +1,98 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:starter_kit_flutter/core/config/env/env.dart';
+import 'package:starter_kit_flutter/core/config/get_it.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:starter_kit_flutter/common/config/getit_config.dart';
+import 'package:logger/logger.dart';
 
+/// show console log with [Logger].
+Logger logger = Logger(
+  printer: PrettyPrinter(
+    methodCount: 100,
+    errorMethodCount: 100,
+  ),
+);
+
+/// [AppBlocObserver]
 class AppBlocObserver extends BlocObserver {
+  /// this class will show every bloc event inside console
   const AppBlocObserver();
 
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
+    logger.i('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
-    super.onError(bloc, error, stackTrace);
+    if (error is StateError &&
+        error.message == 'Cannot emit new states after calling close') {
+      logger.e('onError(${bloc.runtimeType}, $error, $stackTrace)');
+    } else {
+      super.onError(bloc, error, stackTrace);
+    }
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+/// this function i responsible for bootstrap all utills that needs to initialize
+/// before app main ui start.
+Future<void> bootstrap(
+  FutureOr<Widget> Function() builder,
+) async {
   FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
+    logger.e(details.exceptionAsString(), stackTrace: details.stack);
   };
-
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  //* GoogleFonts License Registry
+  LicenseRegistry.addLicense(() async* {
+    final String license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(<String>['google_fonts'], license);
+  });
 
-  /// init get_it dependencies
-  initDependencies();
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  /// Enable if you need to do a background task
-  // initBackgroundServices();
+      await SystemChrome.setPreferredOrientations(const <DeviceOrientation>[
+        DeviceOrientation.portraitUp,
+      ]);
 
-  runApp(await builder());
+      FlutterError.onError = (FlutterErrorDetails details) {
+        logger.e(details.exceptionAsString(), stackTrace: details.stack);
+      };
+
+      /// init get_it dependencies
+      initDependencies();
+
+      /// Enable if you need to do a background task
+      // initBackgroundServices();
+
+      if (kDebugMode) {
+        print(EnvProd.host);
+      }
+      runApp(await builder());
+    },
+    (Object error, StackTrace stackTrace) {
+      logger.e(error.toString(), stackTrace: stackTrace);
+
+      if (error is FlutterError) {
+        if (error.message.toLowerCase().contains('renderflex')) {
+          logger.e('$error, $stackTrace');
+        } else if (error.message
+            .toLowerCase()
+            .contains('cannot emit new states')) {
+          logger.e('$error, $stackTrace');
+        } else {
+          logger.e('$error, $stackTrace');
+        }
+      } else {
+        logger.e('$error, $stackTrace');
+      }
+    },
+  );
 }

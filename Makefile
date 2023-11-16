@@ -11,14 +11,17 @@ changeAppIcon:
 ### Create Splash
 createSplash:
 	fvm flutter pub run flutter_native_splash:create --path=flutter_native_splash.yaml
+	fvm flutter pub run flutter_native_splash:create --flavor production
+	fvm flutter pub run flutter_native_splash:create --flavor development
+	fvm flutter pub run flutter_native_splash:create --flavor staging
 
 ### Change app package name
 changePackageName:
-	fvm flutter pub run change_app_package_name:main com.yourpackage.name
+	fvm flutter pub run change_app_package_name:main com.example.ipp
 
 ### Build apk
-apkBuild:
-	fvm flutter build apk --split-per-abi
+apkBuildDev:
+	fvm flutter build apk --flavor production --target lib/main_production.dart
 
 ### build aab app bundle
 releaseBuild:

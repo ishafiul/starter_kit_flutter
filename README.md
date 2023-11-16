@@ -1,8 +1,6 @@
 # starter_kit_flutter
 
 
----
-
 ## Getting Started 🚀
 
 This project contains 3 flavors:
@@ -24,9 +22,45 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 ---
+## Project Structure 📁
+
+```
+├── lib
+│   ├── app
+│   │   ├── app.dart
+│   │   ├── app_router.dart
+├── core
+│   ├── presentation
+│   ├── utils
+│   ├── config
+│   ├── const
+│   ├── widgets
+├── l10n
+├── modules
+│   ├── module1
+│   │   ├── data
+│   │   ├── models
+│   │   ├── repository
+│   │   ├── service
+│   ├── domain
+│   │   ├── models
+│   │   ├── repository
+│   │   ├── bloc
+│   ├── presentation
+│   │   ├── widgets
+│   │   ├── pages
 
 
-## Change app Name
+
+```
+
+## Change app Name 🏷️
+
+```shell
+flutter pub run flutter_app_name
+```
+**or**
+
 ### Linux
 install `XMLStarlet`
 ```
@@ -54,9 +88,9 @@ done
 # Change app name for Android
 plutil -replace CFBundleDisplayName -string "$appName" ios/Runner/Info.plist
 ```
-## Change project name 
+## Change project name 🏷️
 
-change flutter project name form `pubspac.yaml` and replace `starter_kit_flutter` with your name form `imports`
+change flutter project name form `pubspac.yaml` and fix all import
 
 ## Running Tests 🧪
 
@@ -177,6 +211,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 }
 ```
 
-## Splash screen 
+## Native Splash screen
+`flutter_native_spalsh.yaml` file contains all the necessary config. under the hood, we are using [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
+```shell
+make createSplash
+```
 
 to setup proper splash screen [https://developer.android.com/develop/ui/views/launch/splash-screen](take a look here)

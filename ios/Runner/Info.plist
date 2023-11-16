@@ -16,7 +16,7 @@
 		<key>CFBundleIdentifier</key>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
-		<string>6.0</string>
+		<string>BreezeBuy</string>
 		<key>CFBundleName</key>
 		<string>$(FLAVOR_APP_NAME)</string>
 		<key>CFBundlePackageType</key>
@@ -54,5 +54,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>Flavor</key>
+		<string>${PRODUCT_FLAVOR}</string>
+		<key>NSCameraUsageDescription</key>
+		<string>This app needs camera access to scan QR codes</string>
 	</dict>
 </plist>
