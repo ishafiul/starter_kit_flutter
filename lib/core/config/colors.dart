@@ -30,7 +30,7 @@ MaterialColor createMaterialColor(Color color) {
 class CColor {
   /// primary color for a project that can be use as a [ColorScheme] inside material
   /// theme property.
-  static MaterialColor primary = createMaterialColor(const Color(0xFF006C4A));
+  static MaterialColor primary = createMaterialColor(const Color(0xFF00A0E8));
 
   /// warning color for a project that can be use as a [ColorScheme] inside material
   /// theme property. or use can use for any warning related color.
@@ -68,72 +68,12 @@ class CColor {
   /// just another info shade
   static const infoShade20 = Color(0xFFCEE6FC);
 
-  /// breeze buy brand color shade 50
-  static const brand50 = Color(0xFFE3FFF3);
-
-  /// breeze buy brand color shade 100
-  static const brand100 = Color(0xFF7BB29A);
-
-  /// breeze buy brand color shade 200
-  static const brand200 = Color(0xFF689D86);
-
-  /// breeze buy brand color shade 300
-  static const brand300 = Color(0xFF567F6D);
-
-  /// breeze buy brand color shade 400
-  static const brand400 = Color(0xFF36765C);
-
-  /// breeze buy brand color
-  static const brand = Color(0xFF006C4A);
-
-  /// breeze buy brand color shade 600
-  static const brand600 = Color(0xFF006C4A);
-
-  /// breeze buy brand color shade 700
-  static const brand700 = Color(0xFF004C33);
-
-  /// breeze buy brand color shade 800
-  static const brand800 = Color(0xFF003E27);
-
-  /// breeze buy brand color shade 900
-  static const brand900 = Color(0xFF002315);
-
-  /// breeze buy main gradient color
+  /// gradiant 1
   static const brandGra1 = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Color(0xFF00D894), Color(0xFF006C4A)],
+    begin: Alignment.centerRight,
+    end: Alignment.centerLeft,
+    colors: [Color(0xff0b63e5), Color(0xff00a0e8)],
   );
-
-  /// breeze buy gray shade
-  static const st1 = Color(0xFF6C7E8B);
-
-  /// breeze buy gray shade
-  static const st2 = Color(0xFFbEBEBE);
-
-  /// breeze buy gray shade
-  static const st3 = Color(0xFFE8E8E8);
-
-  /// breeze buy gray shade
-  static const st4 = Color(0xFFfAFAFA);
-
-  /// breeze buy gray shade
-  static const st5 = Color(0xFF3E2726);
-
-  /// breeze buy gray shade
-  static const sc2 = Color(0xFFBEBEBE);
-
-  /// breeze buy accent color
-  static const ac1 = Color(0xFFFF752D);
-
-  /// breeze buy accent color
-  static const ac2 = Color(0xFFFFE500);
-
-  /// breeze buy accent color
-  static const ac3 = Color(0xFFFF6262);
-
-  /// breeze buy positive color
-  static const positive = Color(0xFF24A524);
 
   /// project colors that will retun all color property as static variabble
   CColor();
