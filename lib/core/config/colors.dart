@@ -4,33 +4,72 @@ import 'package:flutter/material.dart';
 /// and will retun [MaterialColor]. so that we can use any color as material color
 /// property. from a solid color it will generate `shade100` to `shade900`.and `shade500`
 /// will be base color.
-MaterialColor createMaterialColor(Color color) {
-  final List<double> strengths = <double>[.5];
-  final swatch = <int, Color>{};
-  final r = color.red;
-  final g = color.green;
-  final b = color.blue;
+///
 
-  for (int i = 1; i < 10; i++) {
-    strengths.add(0.1 * i);
+MaterialColor createMaterialColor(Color baseColor) {
+  Color color = baseColor;
+  int shadeCount = 0;
+  int tintCount = 0;
+  int mid = 0;
+  const double mixPercent = 0.15;
+  final swatch = <int, Color>{};
+  for (int i = 1; i <= 10; i++) {
+    final Color? tint = Color.lerp(color, Colors.white, mixPercent);
+    color = tint!;
+    if (color.red >= 250 && color.green >= 250 && color.blue >= 250) {
+      break;
+    }
+    tintCount++;
   }
-  for (final strength in strengths) {
-    final double ds = 0.5 - strength;
-    swatch[(strength * 1000).round()] = Color.fromRGBO(
-      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
-      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
-      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
-      1,
-    );
+  color = baseColor;
+  for (int i = 1; i <= 10; i++) {
+    final Color? shade = Color.lerp(color, Colors.black, mixPercent);
+    color = shade!;
+    if (color.red <= 15 && color.green <= 15 && color.blue <= 15) {
+      break;
+    }
+    shadeCount++;
   }
-  return MaterialColor(color.value, swatch);
+
+  if (shadeCount >= 4 && tintCount >= 4) {
+    mid = 5;
+  } else if (shadeCount < 4) {
+    mid = 10 - shadeCount;
+  } else if (tintCount < 4) {
+    mid = tintCount + 1;
+  }
+  color = baseColor;
+  if (mid == 1) {
+    swatch[50] = baseColor;
+  } else {
+    swatch[(mid * 100)] = baseColor;
+  }
+  for (int i = mid - 1; i >= 1; i--) {
+    final Color? tint = Color.lerp(color, Colors.white, mixPercent);
+    color = tint!;
+    swatch[(i * 100)] = tint;
+    if (i == 1) {
+      final Color? tint50 = Color.lerp(color, Colors.white, mixPercent);
+      swatch[50] = tint50!;
+    }
+  }
+  color = baseColor;
+  for (int i = mid; i <= 10; i++) {
+    final Color? shade = Color.lerp(color, Colors.black, mixPercent);
+    color = shade!;
+    swatch[(i * 100)] = shade;
+  }
+  return MaterialColor(baseColor.value, swatch);
 }
 
+///rgb(0, 31, 63)
+///rgb(0, 28, 57)
+///
 /// project colors
 class CColor {
   /// primary color for a project that can be use as a [ColorScheme] inside material
   /// theme property.
-  static MaterialColor primary = createMaterialColor(const Color(0xFF00A0E8));
+  static MaterialColor primary = createMaterialColor(const Color(0xFF001F3F));
 
   /// warning color for a project that can be use as a [ColorScheme] inside material
   /// theme property. or use can use for any warning related color.
@@ -57,10 +96,13 @@ class CColor {
   static MaterialColor secondary = createMaterialColor(const Color(0xFFFF752D));
 
   /// text colors
-  static MaterialColor text = createMaterialColor(const Color(0xFF2D2D2D));
+  static MaterialColor text = createMaterialColor(const Color(0xFF000000));
+
+  /// text colors
+  static MaterialColor text2 = createMaterialColor(const Color(0xFF71727A));
 
   /// backgroundColor for projects
-  static const backgroundColor = Colors.white;
+  static const backgroundColor = Color(0xffFAFAFA);
 
   /// disableText for projects
   static const disableText = Color(0xFF838699);
