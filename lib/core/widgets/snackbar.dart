@@ -1,16 +1,27 @@
-import 'package:starter_kit_flutter/core/config/colors.dart';
-import 'package:starter_kit_flutter/core/utils/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:starter_kit_flutter/core/config/colors.dart';
+import 'package:starter_kit_flutter/core/utils/extention.dart';
 
+/// enum for snack-bar
 enum SnackBarType {
+  /// error snack-bar
   error,
+
+  /// success snack-bar
   success,
+
+  /// danger snack-bar
   danger,
+
+  /// info snack-bar
   info,
+
+  /// warning snack-bar
   warning;
 }
 
+/// [showSnackBar] from material  will call
 void showSnackBar({
   required BuildContext builderContext,
   Function? onPressed,
@@ -35,7 +46,7 @@ void showSnackBar({
             child: Icon(
               leadingIcon ?? Icons.warning_amber_outlined,
               size: 26,
-              color: CColor.brand50,
+              color: CColor.primary.shade50,
             ),
           ),
           const SizedBox(width: 16),
@@ -46,7 +57,7 @@ void showSnackBar({
                 Text(
                   title,
                   style: builderContext.textTheme.titleMedium?.copyWith(
-                    color: CColor.brand50,
+                    color: CColor.primary.shade50,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -60,11 +71,12 @@ void showSnackBar({
         side: BorderSide(color: CColor.warning),
         borderRadius: BorderRadius.circular(10),
       ),
-      backgroundColor: CColor.ac1,
+      backgroundColor: CColor.secondary,
       behavior: SnackBarBehavior.floating,
       action: SnackBarAction(
         label: 'CLOSE',
-        textColor: MaterialStateColor.resolveWith((states) => CColor.brand50),
+        textColor:
+            MaterialStateColor.resolveWith((states) => CColor.primary.shade50),
         onPressed: () => onPressed,
       ),
     );
@@ -82,7 +94,7 @@ void showSnackBar({
             child: Icon(
               leadingIcon ?? Icons.warning_amber_outlined,
               size: 26,
-              color: CColor.brand50,
+              color: CColor.primary.shade50,
             ),
           ),
           const SizedBox(width: 16),
@@ -93,7 +105,7 @@ void showSnackBar({
                 Text(
                   title,
                   style: builderContext.textTheme.titleMedium?.copyWith(
-                    color: CColor.brand50,
+                    color: CColor.primary.shade50,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -106,11 +118,12 @@ void showSnackBar({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.r),
       ),
-      backgroundColor: CColor.ac3,
+      backgroundColor: CColor.secondary,
       behavior: SnackBarBehavior.floating,
       action: SnackBarAction(
         label: 'CLOSE',
-        textColor: MaterialStateColor.resolveWith((states) => CColor.brand50),
+        textColor:
+            MaterialStateColor.resolveWith((states) => CColor.primary.shade50),
         onPressed: () => onPressed,
       ),
     );
@@ -128,7 +141,7 @@ void showSnackBar({
             child: Icon(
               leadingIcon ?? Icons.warning_amber_outlined,
               size: 26,
-              color: CColor.brand50,
+              color: CColor.primary.shade50,
             ),
           ),
           const SizedBox(width: 16),
@@ -139,7 +152,7 @@ void showSnackBar({
                 Text(
                   title,
                   style: builderContext.textTheme.titleMedium?.copyWith(
-                    color: CColor.brand50,
+                    color: CColor.primary.shade50,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -152,11 +165,12 @@ void showSnackBar({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.r),
       ),
-      backgroundColor: CColor.positive,
+      backgroundColor: CColor.success,
       behavior: SnackBarBehavior.floating,
       action: SnackBarAction(
         label: 'CLOSE',
-        textColor: MaterialStateColor.resolveWith((states) => CColor.brand50),
+        textColor:
+            MaterialStateColor.resolveWith((states) => CColor.primary.shade50),
         onPressed: () => onPressed,
       ),
     );
@@ -192,20 +206,20 @@ void showSnackBar({
       ),
     );
   } else if (type == SnackBarType.info) {
-    snackBar =  SnackBar(
+    snackBar = SnackBar(
       content: Row(
         children: [
           Container(
             height: 44.w,
             width: 44.w,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: CColor.brand700,
+              color: CColor.primary.shade800,
             ),
             child: Icon(
               leadingIcon ?? Icons.warning_amber_outlined,
               size: 26,
-              color: CColor.brand50,
+              color: CColor.primary.shade50,
             ),
           ),
           const SizedBox(width: 16),
@@ -216,7 +230,7 @@ void showSnackBar({
                 Text(
                   title,
                   style: builderContext.textTheme.titleMedium?.copyWith(
-                    color: CColor.brand50,
+                    color: CColor.primary.shade50,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -229,11 +243,12 @@ void showSnackBar({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.r),
       ),
-      backgroundColor: CColor.brand,
+      backgroundColor: CColor.primary,
       behavior: SnackBarBehavior.floating,
       action: SnackBarAction(
         label: 'CLOSE',
-        textColor: MaterialStateColor.resolveWith((states) => CColor.brand50),
+        textColor:
+            MaterialStateColor.resolveWith((states) => CColor.primary.shade50),
         onPressed: () => onPressed,
       ),
     );
