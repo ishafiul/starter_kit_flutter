@@ -1,20 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:starter_kit_flutter/core/config/colors.dart';
 import 'package:starter_kit_flutter/core/const.dart';
 import 'package:starter_kit_flutter/core/utils/extention.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// custom button
 class Button extends StatelessWidget {
+  /// on press button
   final Function()? onPressed;
+
+  /// [ButtonType]
   late final ButtonType? buttonType;
+
+  /// [ButtonSize]
   final ButtonSize buttonSize;
+
+  /// [ButtonColor]
   final ButtonColor buttonColor;
+
+  final Color? color;
+
+  /// is full width
   final bool? isFullWidth;
+
+  /// widget for the button
   final Widget child;
 
+  ///basic button
   Button({
     super.key,
     this.onPressed,
+    this.color,
     required this.buttonSize,
     required this.buttonColor,
     this.isFullWidth = false,
@@ -23,9 +39,11 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.elevated;
   }
 
+  /// text button
   Button.text({
     super.key,
     this.onPressed,
+    this.color,
     required this.buttonSize,
     required this.buttonColor,
     this.isFullWidth = false,
@@ -34,9 +52,11 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.text;
   }
 
+  /// outline button
   Button.outline({
     super.key,
     this.onPressed,
+    this.color,
     required this.buttonSize,
     required this.buttonColor,
     this.isFullWidth = false,
@@ -45,9 +65,11 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.outline;
   }
 
+  /// filled button
   Button.filled({
     super.key,
     this.onPressed,
+    this.color,
     required this.buttonSize,
     required this.buttonColor,
     this.isFullWidth = false,
@@ -56,9 +78,11 @@ class Button extends StatelessWidget {
     buttonType = ButtonType.filled;
   }
 
+  /// secondary button
   Button.tonal({
     super.key,
     this.onPressed,
+    this.color,
     required this.buttonSize,
     required this.buttonColor,
     this.isFullWidth = false,
@@ -101,6 +125,7 @@ class Button extends StatelessWidget {
         buttonSize: buttonSize,
         child: child,
         context: context,
+        color: color,
         buttonColor: buttonColor,
         onPressed: onPressed,
         isFullWidth: isFullWidth,
@@ -127,12 +152,67 @@ class Button extends StatelessWidget {
   }
 }
 
-enum ButtonType { text, elevated, filled, outline, tonal, icon }
+/// enum for button type
+enum ButtonType {
+  /// text
+  text,
 
-enum ButtonSize { xl, lg, md, sm, xsm }
+  /// elevated
+  elevated,
 
-enum ButtonColor { info, primary, warning, danger, success, secondary }
+  /// filled
+  filled,
 
+  /// outline
+  outline,
+
+  /// outline
+  tonal,
+
+  /// icon
+  icon,
+}
+
+/// enum for button size
+enum ButtonSize {
+  /// size 72
+  xl,
+
+  /// size 65
+  lg,
+
+  /// size 48
+  md,
+
+  /// size 66
+  sm,
+
+  /// size 32
+  xsm,
+}
+
+/// button color
+enum ButtonColor {
+  /// color [CColor.info]
+  info,
+
+  /// color [CColor.primary]
+  primary,
+
+  /// color [CColor.warning]
+  warning,
+
+  /// color [CColor.danger]
+  danger,
+
+  /// color [CColor.success]
+  success,
+
+  /// color [CColor.secondary]
+  secondary,
+}
+
+/// return filled button widget
 Widget filled({
   required ButtonSize buttonSize,
   bool? isFullWidth = false,
@@ -165,6 +245,7 @@ Widget filled({
   );
 }
 
+/// return text button widget
 Widget text({
   required ButtonSize buttonSize,
   bool? isFullWidth = false,
@@ -186,6 +267,7 @@ Widget text({
   );
 }
 
+/// return filled button widget
 Widget elevated({
   required ButtonSize buttonSize,
   bool? isFullWidth = true,
@@ -211,6 +293,7 @@ Widget elevated({
   );
 }
 
+/// return tonal/filled button widget
 Widget tonal({
   required ButtonSize buttonSize,
   bool? isFullWidth = false,
@@ -245,11 +328,13 @@ Widget tonal({
   );
 }
 
+/// return outline button widget
 Widget outline({
   required ButtonSize buttonSize,
   bool? isFullWidth = true,
   Function()? onPressed,
   required Widget child,
+  Color? color,
   required BuildContext context,
   required ButtonColor buttonColor,
 }) {
@@ -260,13 +345,15 @@ Widget outline({
       onPressed: onPressed,
       style: context.outlineButtonTheme.style?.copyWith(
         foregroundColor: onPressed != null
-            ? getColor(buttonColor: buttonColor)
+            ? color != null
+                ? MaterialStatePropertyAll(color)
+                : getColor(buttonColor: buttonColor)
             : const MaterialStatePropertyAll(CColor.disableText),
-        backgroundColor: const MaterialStatePropertyAll(CColor.brand50),
+        // backgroundColor: MaterialStatePropertyAll(CColor.primary.shade50),
         side: MaterialStateProperty.resolveWith<BorderSide>((_) {
           return BorderSide(
             color: onPressed != null
-                ? getColorOnly(buttonColor: buttonColor)
+                ? color ?? getColorOnly(buttonColor: buttonColor)
                 : CColor.disable,
           );
         }),
@@ -276,6 +363,7 @@ Widget outline({
   );
 }
 
+/// return button height
 double getHeight(ButtonSize buttonSize) {
   if (buttonSize == ButtonSize.xl) {
     return 72.h;
@@ -284,24 +372,13 @@ double getHeight(ButtonSize buttonSize) {
   } else if (buttonSize == ButtonSize.md) {
     return 48.h;
   } else if (buttonSize == ButtonSize.sm) {
-    return 42.h;
-  } else {
     return 36.h;
+  } else {
+    return 32.h;
   }
 }
 
-/*double getWidth(ButtonSize buttonSize) {
-  if (buttonSize == ButtonSize.xl) {
-    return 108;
-  } else if (buttonSize == ButtonSize.lg) {
-    return 100;
-  } else if (buttonSize == ButtonSize.xsm) {
-    return 64;
-  } else {
-    return 82;
-  }
-}*/
-
+/// return button color
 MaterialStateProperty<Color?> getColor({
   required ButtonColor buttonColor,
   ButtonType? buttonType,
@@ -337,6 +414,7 @@ MaterialStateProperty<Color?> getColor({
   }
 }
 
+/// return button base color
 MaterialColor getColorOnly({required ButtonColor buttonColor}) {
   if (buttonColor == ButtonColor.success) {
     return CColor.success;
