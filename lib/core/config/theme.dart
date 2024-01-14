@@ -1,9 +1,8 @@
-import 'package:starter_kit_flutter/core/config/colors.dart';
-import 'package:starter_kit_flutter/core/const.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
+import 'package:starter_kit_flutter/core/config/colors.dart';
+import 'package:starter_kit_flutter/core/const.dart';
 
 /// a [Singleton] class that hold our project theming info
 @singleton
@@ -16,7 +15,7 @@ class AppTheme {
       primary: CColor.primary,
       onPrimary: Colors.white,
       secondary: CColor.info,
-      background: Colors.white,
+      background: CColor.backgroundColor,
       onSecondary: Colors.white,
       error: CColor.danger,
       surfaceTint: Colors.white,
@@ -25,7 +24,13 @@ class AppTheme {
     return baseTheme.copyWith(
       useMaterial3: true,
       colorScheme: colorScheme,
+      scaffoldBackgroundColor: const Color(0xffFAFAFA),
       inputDecorationTheme: InputDecorationTheme(
+        counterStyle: TextStyle(
+          color: const Color(0xff71727A),
+          fontSize: 14.r,
+          fontWeight: FontWeight.w300,
+        ),
         labelStyle: TextStyle(color: Colors.black, fontSize: 14.r),
         contentPadding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
         prefixIconColor: const Color(0xff6C7E8B),
@@ -33,18 +38,18 @@ class AppTheme {
         filled: true,
         isDense: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: CColor.st3),
-          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          borderSide: BorderSide(color: CColor.primary),
+          borderRadius: BorderRadius.all(Radius.circular(Space.lg.r)),
         ),
         enabledBorder: OutlineInputBorder(
           // width: 0.0 produces a thin "hairline" border
-          borderSide: const BorderSide(color: CColor.st3),
-          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          borderSide: const BorderSide(color: Color(0xffC5C6CC)),
+          borderRadius: BorderRadius.all(Radius.circular(Space.lg.r)),
         ),
         errorBorder: OutlineInputBorder(
           // width: 0.0 produces a thin "hairline" border
           borderSide: BorderSide(color: CColor.danger),
-          borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          borderRadius: BorderRadius.all(Radius.circular(Space.lg.r)),
         ),
         hintStyle: TextStyle(
           color: const Color(0xffBEBEBE),
@@ -60,25 +65,24 @@ class AppTheme {
         shape: Border.all(color: Colors.transparent),
       ),
       appBarTheme: AppBarTheme(
-        surfaceTintColor: Colors.white,
-        toolbarHeight: 70.h,
-        elevation: 2,
-        shadowColor: Colors.black.withAlpha(40),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          // Status bar color
-          statusBarColor: CColor.primary,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-        ),
+        backgroundColor: const Color(0xffFAFAFA),
+        elevation: 0,
+        toolbarHeight: 56.h,
+        titleSpacing: 16.w,
+        shadowColor: Colors.black.withAlpha(0),
+        // systemOverlayStyle: const SystemUiOverlayStyle(
+        //   statusBarColor: Colors.transparent,
+        //   statusBarIconBrightness: Brightness.dark,
+        // ),
       ),
-      tabBarTheme: const TabBarTheme(
-        indicatorColor: CColor.brand800,
+      tabBarTheme: TabBarTheme(
+        indicatorColor: CColor.primary.shade800,
         indicatorSize: TabBarIndicatorSize.tab,
         tabAlignment: TabAlignment.start,
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
-        unselectedLabelColor: CColor.st1,
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
+        unselectedLabelColor: CColor.disableText,
         labelStyle: TextStyle(
-          color: CColor.brand800,
+          color: CColor.primary.shade800,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -124,6 +128,8 @@ class AppTheme {
           ),
         ),
       ),
+      iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(iconSize: MaterialStatePropertyAll(24.r))),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           disabledForegroundColor: CColor.disableText,
@@ -157,13 +163,10 @@ class AppTheme {
           ),
         ),
         color: Colors.white,
-        shadowColor: CColor.st1.withOpacity(0.05),
-      ),
-      iconTheme: const IconThemeData(
-        weight: 300,
+        shadowColor: CColor.disableText.withOpacity(0.05),
       ),
       dividerTheme: const DividerThemeData(
-        color: CColor.sc2,
+        color: CColor.disableText,
         thickness: 1.0,
       ),
       bottomSheetTheme:
@@ -187,100 +190,100 @@ class AppTheme {
         displayLarge: TextStyle(
           fontSize: 57.r,
           color: CColor.text,
-          height: 1.25.h,
+          fontFamily: 'Inter',
         ),
         displayMedium: TextStyle(
           fontSize: 45.r,
           color: CColor.text,
-          height: 1.15.h,
+          fontFamily: 'Inter',
         ),
         displaySmall: TextStyle(
           fontSize: 36.r,
           color: CColor.text,
-          height: 1.22.h,
+          fontFamily: 'Inter',
         ),
         headlineLarge: TextStyle(
           fontSize: 32.r,
           color: CColor.text,
-          height: 1.25.h,
+          fontFamily: 'Inter',
         ),
         headlineMedium: TextStyle(
           fontSize: 28.r,
           color: CColor.text,
-          height: 1.28.h,
+          fontFamily: 'Inter',
         ),
         headlineSmall: TextStyle(
           fontSize: 24.r,
           color: CColor.text,
-          height: 1.33.h,
+          fontFamily: 'Inter',
         ),
         titleLarge: TextStyle(
           fontSize: 20.r,
           color: CColor.text,
-          height: 1.2.h,
+          fontFamily: 'Inter',
         ),
         titleMedium: TextStyle(
           fontSize: 22.r,
           color: CColor.text,
-          height: 1.27.h,
+          fontFamily: 'Inter',
         ),
         titleSmall: TextStyle(
           fontSize: 16.r,
           color: CColor.text,
-          height: 1.5.h,
+          fontFamily: 'Inter',
         ),
         bodyLarge: TextStyle(
           fontSize: 16.r,
           color: CColor.text,
-          height: 1.2.h,
+          fontFamily: 'Inter',
         ),
         bodyMedium: TextStyle(
           fontSize: 14.r,
           color: CColor.text,
-          height: 1.42.h,
+          fontFamily: 'Inter',
         ),
         bodySmall: TextStyle(
           fontSize: 12.r,
           color: CColor.text,
-          height: 1.33.h,
+          fontFamily: 'Inter',
         ),
-        labelLarge: TextStyle(
-          fontSize: 14.r,
+        labelLarge:
+            TextStyle(fontSize: 14.r, color: CColor.text, fontFamily: 'Inter'),
+        labelMedium:
+            TextStyle(fontSize: 12.r, color: CColor.text, fontFamily: 'Inter'),
+        labelSmall: TextStyle(
+          fontSize: 11.r,
           color: CColor.text,
+          letterSpacing: 0,
+          fontFamily: 'Inter',
         ),
-        labelMedium: TextStyle(
-          fontSize: 12.r,
-          color: CColor.text,
-        ),
-        labelSmall:
-            TextStyle(fontSize: 11.r, color: CColor.text, letterSpacing: 0),
       ),
       timePickerTheme: TimePickerThemeData(
         dayPeriodColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? CColor.brand
+              ? CColor.primary
               : Colors.white,
         ),
         dayPeriodTextColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? CColor.brand50
+              ? CColor.primary.shade50
               : const Color(0xffbebebe),
         ),
-        dialBackgroundColor: CColor.brand50,
+        dialBackgroundColor: CColor.primary.shade50,
         dialTextColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? CColor.brand50
-              : CColor.brand,
+              ? CColor.primary.shade50
+              : CColor.primary,
         ),
         hourMinuteColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? CColor.brand
-              : CColor.brand50,
+              ? CColor.primary
+              : CColor.primary.shade50,
         ),
         hourMinuteTextColor: MaterialStateColor.resolveWith(
           (states) => states.contains(MaterialState.selected)
-              ? CColor.brand50
-              : CColor.brand100,
+              ? CColor.primary.shade50
+              : CColor.primary.shade100,
         ),
         dayPeriodBorderSide: const BorderSide(color: Color(0xffbebebe)),
       ),
