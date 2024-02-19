@@ -34,7 +34,7 @@ class CDropDownItemInput extends StatelessWidget {
           child: Text(
             initialItemLabelText != null
                 ? initialItemLabelText!
-                : 'Select A $labelText'.toSentenceCase(),
+                : 'Select A $labelText'.toSentenceCase,
             style: const TextStyle(color: Colors.black38, fontSize: 14),
           ),
         ),
@@ -42,7 +42,7 @@ class CDropDownItemInput extends StatelessWidget {
     }
     for (final element in items) {
       final label =
-          "${labelPrefix != null ? '$labelPrefix ' : ''}${element.toSentenceCase()}${labelSuffix != null ? ' $labelSuffix' : ''}";
+          "${labelPrefix != null ? '$labelPrefix ' : ''}${element.toSentenceCase}${labelSuffix != null ? ' $labelSuffix' : ''}";
       newItems.add(
         DropdownMenuItem(
           value: element,
