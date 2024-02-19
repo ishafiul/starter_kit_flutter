@@ -14,8 +14,8 @@ class StickyScaffoldBottomSheet extends StatefulWidget {
     this.snapSizes,
     this.snapAnimationDuration,
     this.controller,
-    this.maximizeWidget,
-    this.minimizeWidget,
+    this.maximizeWidgets,
+    this.minimizeWidgets,
     this.shouldCloseOnMinExtent = true,
   });
 
@@ -109,10 +109,10 @@ class StickyScaffoldBottomSheet extends StatefulWidget {
   final bool shouldCloseOnMinExtent;
 
   /// The widget to display when the sheet is minimized.
-  final Widget? minimizeWidget;
+  final List<Widget>? minimizeWidgets;
 
   /// The widget to display when the sheet is maximized.
-  final Widget? maximizeWidget;
+  final List<Widget>? maximizeWidgets;
 
   @override
   State<StickyScaffoldBottomSheet> createState() =>
@@ -127,6 +127,12 @@ class _StickyScaffoldBottomSheetState extends State<StickyScaffoldBottomSheet> {
   void initState() {
     super.initState();
     draggableScrollableController = DraggableScrollableController();
+  }
+
+  @override
+  void dispose() {
+    draggableScrollableController!.dispose();
+    super.dispose();
   }
 
   @override
@@ -146,9 +152,25 @@ class _StickyScaffoldBottomSheetState extends State<StickyScaffoldBottomSheet> {
         controller: draggableScrollableController,
         builder: (dragSheetContext, scrollController) {
           if (draggableScrollableSheetExtent <= widget.snapChildSize) {
-            return widget.minimizeWidget ?? const SizedBox();
+            return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: ListView(
+                controller: scrollController,
+                children: widget.minimizeWidgets ?? const [SizedBox()],
+              )
+            );
           }
-          return widget.maximizeWidget ?? const SizedBox();
+          return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: ListView(
+                controller: scrollController,
+                children: widget.maximizeWidgets ?? const [SizedBox()],
+              )
+          );
         },
       ),
     );
