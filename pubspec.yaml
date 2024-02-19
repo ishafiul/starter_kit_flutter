@@ -30,6 +30,8 @@ dependencies:
   retrofit: ^4.0.2
   envied: ^0.3.0+3
   lottie: ^2.6.0
+  google_maps_flutter: ^2.5.3
+  vibration: ^1.8.4
 
 
 

@@ -8,6 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// [GlobalKey] for [ScaffoldMessenger]
+GlobalKey<ScaffoldMessengerState> scaffoldMessageKey =
+GlobalKey<ScaffoldMessengerState>();
+
 /// [App]
 class App extends StatelessWidget {
   /// starting point of our app
@@ -33,6 +37,7 @@ class App extends StatelessWidget {
         splitScreenMode: true,
         builder: (BuildContext context, _) {
           return MaterialApp.router(
+            scaffoldMessengerKey: scaffoldMessageKey,
             debugShowCheckedModeBanner: false,
             theme: getIt<AppTheme>().lightTheme,
             routerDelegate: router.routerDelegate,
